@@ -1,5 +1,4 @@
 import json
-import time
 
 import pyelasticsearch as es
 
@@ -21,18 +20,14 @@ class Indexer(object):
             pass
         self.client.put_mapping(
             "twit",
-            "tweet",
-            {
-                "tweet":
-                {
-                    "properties":
-                    {
+            "tweet", {
+                "tweet": {
+                    "properties": {
                         "location": {"type": "geo_point"},
                         "text": {"type": "string",
                                  "store": "yes"}
                     },
-                    "_ttl":
-                    {
+                    "_ttl": {
                         "enabled": True,
                         "default": "1h"
                     },
@@ -49,6 +44,7 @@ class Indexer(object):
         while True:
             tweet = json.loads(self.sub.recv())
             self.index(tweet)
+
 
 if __name__ == "__main__":
     indexer = Indexer("twit").setup()

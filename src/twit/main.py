@@ -1,10 +1,8 @@
 import sys
-import json
 
 import tweepy
 
 import twit.config
-from twit.indexer import Indexer
 from twit.fanout import Publisher
 
 
