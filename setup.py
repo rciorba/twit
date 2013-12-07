@@ -6,7 +6,7 @@ setup(
     version="0.0.1",
     packages=find_packages('src'),
     package_dir={'': 'src'},
-    install_requires=["tweepy", "pyelasticsearch", "PyZMQ", "gevent", "paste"],
+    install_requires=["tweepy", "pyelasticsearch", "PyZMQ", "gevent", "paste", "flask"],
     package_data={
         '': ['*.txt'],
     },
