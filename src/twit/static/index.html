@@ -1,6 +1,19 @@
+<!DOCTYPE html>
 <html>
   <head><title>Twit! - see tweets near you</title></head>
   <body>
     <p>See tweets near you.</p>
+    <div id="twit_box">loading..</div>
+    <script type="text/html" id='twit_box_template'>
+	<% _.each(tweets, function(tweet){ %>
+          <ul class="tweet">
+            <span class="text"><%= tweet.text %></span>
+            <span class="user"><%= tweet.user.name %></span>
+	  </ul>
+        <% }); %>
+    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+    <script src="twit.js"></script>
   </body>
 </html>

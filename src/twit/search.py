@@ -20,6 +20,7 @@ def build_query(lat, lon):
                             "lat": lat,
                         }}}}}}
 
+
 @app.route("/search/lonlat/<lon>+<lat>")
 def search(lat, lon):
     lat, lon = float(lat), float(lon)
