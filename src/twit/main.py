@@ -1,3 +1,4 @@
+import json
 import sys
 
 import tweepy
@@ -44,7 +45,7 @@ class CustomStreamListener(tweepy.StreamListener):
         # index.index(status)
         tweet = tweet_to_dict(status)
         if tweet is not None:
-            pub.send(tweet)
+            pub.send(json.dumps(tweet))
 
     def on_error(self, status_code):
         print >> sys.stderr, 'Encountered error with status code:', status_code
