@@ -1,22 +1,31 @@
-(function($, _, console) {
+(function($, _) {
     "use strict";
-    console.log("spam");
+
+    if (typeof window.console == "undefined" || typeof window.console.log == "undefined"){
+        var console = {log: function(){}};
+    } else {
+        var console = window.console;
+    }
 
     function render(data){
 	var template = $("#twit_box_template").html();
 	var rendered = _.template(template, data);
-	console.log(rendered);
 	$("#twit_box").html(rendered);
     };
 
-    function get_tweets(callback){
+    function get_tweets(callback, forever){
+	console.log("getting tweets");
 	$.getJSON("/search/lonlat/-2.28+53.46", function(data){
 	    // $.each(data.tweets, function(index, tweet){
-	    // 	console.log(tweet);
+	    // 	log(tweet);
 	    // });
 	    callback(data);
 	});
+	if (forever){
+	    console.log(get_tweets);
+	    _.delay(get_tweets, 10000, callback, forever);
+	}
     };
 
-    get_tweets(render);
-}(jQuery, _, console));
+    get_tweets(render, true);
+}(jQuery, _));
