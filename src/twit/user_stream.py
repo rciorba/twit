@@ -10,23 +10,37 @@ ctx = context()
 def broadcast_tweets():
     """get tweets from zmq and send them to all user_streams
     """
+    print "broadcast_tweets"
     sub = Subscriber(context=ctx)
     pub = Publisher(url="inproc://twit", context=ctx)
     while True:
         pub.send(marshal.dumps(json.loads(sub.recv())))
 
 
-def user_stream(lon, lat, dist):
+def user_stream(lon, lat, dist, web_sock):
     sub = Subscriber(url="inproc://twit", context=ctx)
     sq_dist = dist**2
-    print lat, lon, dist
+    # print lat, lon, dist
     while True:
         tweet = marshal.loads(sub.recv())
         _lat = tweet["location"]["lat"]
         _lon = tweet["location"]["lon"]
         _sq_dist = (lat-_lat)**2 + (lon-_lon)**2
         if _sq_dist < sq_dist:
-            print tweet
+            web_sock.send(json.dumps(tweet))
+
+
+def parse_lon_lat(path):
+    lon, lat, dist = path[1:].split(";")
+    return float(lon), float(lat), float(dist)
+
+
+def web_socket_handler(environ, start_response):
+    print "called"
+    web_sock = environ['wsgi.websocket']
+    lon, lat, dist = parse_lon_lat(web_sock.path)
+    web_sock.send("text"+web_sock.path)
+    user_stream(lon, lat, dist, web_sock)
 
 
 if __name__ == "__main__":
@@ -40,7 +54,6 @@ if __name__ == "__main__":
         ]
     # UserStream(-2.27828292, 53.46188953, 1).loop()
     _stress(1000)  # check your open fd limit
-    _stress(1000)
     broadcast_tweets()
     while 1:
         gevent.sleep(60)

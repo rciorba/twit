@@ -28,4 +28,10 @@
     };
 
     get_tweets(render, true);
+
+    var web_sock = new WebSocket("ws://localhost:8001/-2.28;53.46;1");
+    web_sock.onmessage = function(evt) {
+	console.log(evt.data);
+    };
+
 }(jQuery, _));
