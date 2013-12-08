@@ -28,6 +28,7 @@ def tweet_to_dict(tweet):
         "text": tweet.text,
         "id": tweet.id,
         "user": {"id": tweet.user.id, "name": tweet.user.name},
+        "timestamp": int(tweet.created_at.strftime("%s")),
     }
     if tweet.geo is not None:
         # ignore tweets that don't provide latitude/longitude

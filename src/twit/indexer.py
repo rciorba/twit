@@ -25,11 +25,12 @@ class Indexer(object):
                     "properties": {
                         "location": {"type": "geo_point"},
                         "text": {"type": "string",
-                                 "store": "yes"}
+                                 "store": "yes"},
+                        "timestamp": {"type": "integer"},
                     },
                     "_ttl": {
                         "enabled": True,
-                        "default": "1h"
+                        "default": "15m"
                     },
                     "_id": {"path": "id"},
                 }

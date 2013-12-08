@@ -9,6 +9,7 @@
           <ul class="tweet">
             <span class="text"><%= tweet.text %></span>
             <span class="user"><%= tweet.user.name %></span>
+            <span class="time"><%= new Date(tweet.timestamp*1000).toUTCString() %></span>
 	  </ul>
         <% }); %>
     </script>

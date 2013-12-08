@@ -14,11 +14,19 @@ def build_query(lat, lon):
                 "query": {"match_all": {}},
                 "filter": {
                     "geo_distance": {
-                        "distance": "1km",
+                        "distance": "5km",
                         "tweet.location": {
                             "lon": lon,
                             "lat": lat,
-                        }}}}}}
+                        }
+                    }
+                }
+            }
+        },
+        "sort": [
+            {"timestamp": {"order": "desc"}},
+        ],
+    }
 
 
 @app.route("/search/lonlat/<lon>+<lat>")
