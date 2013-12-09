@@ -18,6 +18,9 @@
 	_.each(data.tweets, function(tweet){
 	    rendered = rendered+_.template(template, tweet);
 	});
+	if (data.tweets.length == 0){
+	    rendered = "<ul id='quiet'>People in your area are unusually quiet!</ul>";
+	}
     	$("#twit_box").html(rendered);
     };
 
@@ -43,11 +46,12 @@
 	lon = position.coords.longitude;
 	lat = position.coords.latitude;
 	get_tweets(render_all);
-	var web_sock = new WebSocket("ws://localhost:8001/"+lon+";"+lat+";3");
+	var web_sock = new WebSocket("ws://"+window.location.hostname+":8001/"+lon+";"+lat+";3");
 	web_sock.onmessage = function(evt) {
 	    var tweet = $(_.template(template, $.parseJSON(evt.data)))
     	    tweet.hide().prependTo(container).fadeIn();
 	    $(".tweet", container).slice(30).remove();
+	    $("#quiet").remove();
 	};
     }
 
