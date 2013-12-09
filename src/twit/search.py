@@ -18,7 +18,7 @@ def build_query(lat, lon):
                 "query": {"match_all": {}},
                 "filter": {
                     "geo_distance": {
-                        "distance": "5km",
+                        "distance": "50km",
                         "tweet.location": {
                             "lon": lon,
                             "lat": lat,

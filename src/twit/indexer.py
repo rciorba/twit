@@ -6,7 +6,7 @@ from twit.fanout import Subscriber
 from twit import config
 
 
-cfg = config.get_confit()
+cfg = config.get_config()
 
 
 class Indexer(object):
@@ -14,7 +14,7 @@ class Indexer(object):
         self.name = name
         self.settings = settings
         self.client = client or es.ElasticSearch(
-            urls=[cgf.get("ES_URL", "http://localhost:9200")])
+            urls=[cfg.get("ES_URL", "http://localhost:9200")])
         self.sub = Subscriber()
 
     def setup(self):
