@@ -10,6 +10,9 @@
     var template = $("#twit_box_template").html();
     var container = $("#twit_box");
 
+    var lon;
+    var lat;
+
     function render_all(data){
 	var rendered = "";
 	_.each(data.tweets, function(tweet){
@@ -19,7 +22,8 @@
     };
 
     function get_tweets(callback, forever){
-	$.getJSON("/search/lonlat/-2.28+53.46", function(data){
+	console.log(lon);
+	$.getJSON("/search/lonlat/"+lon+"+"+lat, function(data){
 	    callback(data);
 	});
 	if (forever){
@@ -28,13 +32,28 @@
 	}
     };
 
-    get_tweets(render_all);
+    function get_location() {
+	if (navigator.geolocation) {
+	    navigator.geolocation.getCurrentPosition(with_position);
+	}
+	else{x.innerHTML="Geolocation is not supported by this browser.";}
+    }
 
-    var web_sock = new WebSocket("ws://localhost:8001/-2.28;53.46;.3");
-    web_sock.onmessage = function(evt) {
-	var tweet = $(_.template(template, $.parseJSON(evt.data)))
-    	tweet.hide().prependTo(container).fadeIn();
-	$(".tweet", container).slice(30).remove();
-    };
+    function with_position(position){
+	lon = position.coords.longitude;
+	lat = position.coords.latitude;
+	get_tweets(render_all);
+	var web_sock = new WebSocket("ws://localhost:8001/"+lon+";"+lat+";3");
+	web_sock.onmessage = function(evt) {
+	    var tweet = $(_.template(template, $.parseJSON(evt.data)))
+    	    tweet.hide().prependTo(container).fadeIn();
+	    $(".tweet", container).slice(30).remove();
+	};
+    }
+
+
+    // get_tweets(render_all);
+    get_location();
+
 
 }(jQuery, _));

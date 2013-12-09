@@ -58,4 +58,5 @@ class CustomStreamListener(tweepy.StreamListener):
 
 sapi = tweepy.streaming.Stream(auth, CustomStreamListener())
 
-sapi.filter(locations=[-11.206, 49.821, 2.900, 61.186])  # southwest corner first
+# sapi.filter(locations=[-11.206, 49.821, 2.900, 61.186])  # southwest corner first
+sapi.filter(locations=[-180,-90,180,90])  # southwest corner first
