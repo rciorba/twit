@@ -7,18 +7,19 @@
         var console = window.console;
     }
 
-    function render(data){
-	var template = $("#twit_box_template").html();
-	var rendered = _.template(template, data);
-	$("#twit_box").html(rendered);
+    var template = $("#twit_box_template").html();
+    var container = $("#twit_box");
+
+    function render_all(data){
+	var rendered = "";
+	_.each(data.tweets, function(tweet){
+	    rendered = rendered+_.template(template, tweet);
+	});
+    	$("#twit_box").html(rendered);
     };
 
     function get_tweets(callback, forever){
-	console.log("getting tweets");
 	$.getJSON("/search/lonlat/-2.28+53.46", function(data){
-	    // $.each(data.tweets, function(index, tweet){
-	    // 	log(tweet);
-	    // });
 	    callback(data);
 	});
 	if (forever){
@@ -27,11 +28,13 @@
 	}
     };
 
-    get_tweets(render, true);
+    get_tweets(render_all);
 
-    var web_sock = new WebSocket("ws://localhost:8001/-2.28;53.46;1");
+    var web_sock = new WebSocket("ws://localhost:8001/-2.28;53.46;.3");
     web_sock.onmessage = function(evt) {
-	console.log(evt.data);
+	var tweet = $(_.template(template, $.parseJSON(evt.data)))
+    	tweet.hide().prependTo(container).fadeIn();
+	$(".tweet", container).slice(30).remove();
     };
 
 }(jQuery, _));
