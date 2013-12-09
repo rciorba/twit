@@ -3,6 +3,10 @@ import json
 import pyelasticsearch as es
 
 from twit.fanout import Subscriber
+from twit import config
+
+
+cfg = config.get_confit()
 
 
 class Indexer(object):
@@ -10,7 +14,7 @@ class Indexer(object):
         self.name = name
         self.settings = settings
         self.client = client or es.ElasticSearch(
-            urls=["http://localhost:49167"])
+            urls=[cgf.get("ES_URL", "http://localhost:9200")])
         self.sub = Subscriber()
 
     def setup(self):

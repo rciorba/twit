@@ -1,10 +1,14 @@
 from flask import Flask, jsonify
 import pyelasticsearch as es
 
+from twit import config
+
+
 
 app = Flask("twit")
 app.debug = True
-client = es.ElasticSearch(urls=["http://localhost:49167"])
+cfg = config.get_config()
+client = es.ElasticSearch(urls=[cfg.get("ES_URL", "http://localhost:9200")])
 
 
 def build_query(lat, lon):
