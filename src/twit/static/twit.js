@@ -15,32 +15,32 @@
     var web_sock = null;
 
     function render_all(data){
-	      var rendered = "";
-	      _.each(data.tweets, function(tweet){
-	          rendered = rendered+_.template(template, tweet);
-	      });
-	      if (data.tweets.length == 0){
-	          rendered = "<ul id='quiet'>People in your area are unusually quiet!</ul>";
-	      }
-    	$("#twit_box").html(rendered);
+        var rendered = "";
+        _.each(data.tweets, function(tweet){
+            rendered = rendered+_.template(template, tweet);
+        });
+        if (data.tweets.length == 0){
+            rendered = "<ul id='quiet'>People in your area are unusually quiet!</ul>";
+        }
+        $("#twit_box").html(rendered);
     };
 
     function get_tweets(callback, forever){
-	      console.log(lon);
-	      $.getJSON("/search/lonlat/"+lon+"+"+lat, function(data){
-	          callback(data);
-	      });
-	      if (forever){
-	          console.log(get_tweets);
-	          _.delay(get_tweets, 10000, callback, forever);
-	      }
+        console.log(lon);
+        $.getJSON("/search/lonlat/"+lon+"+"+lat, function(data){
+            callback(data);
+        });
+        if (forever){
+            console.log(get_tweets);
+            _.delay(get_tweets, 10000, callback, forever);
+        }
     };
 
     function get_location() {
-	      if (navigator.geolocation) {
-	          navigator.geolocation.getCurrentPosition(with_position);
-	      }
-	      else{x.innerHTML="Geolocation is not supported by this browser.";}
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(with_position);
+        }
+        console.log("geolocation is not supported");
     }
 
     function main() {
@@ -49,18 +49,18 @@
         if (web_sock !== null){
             web_sock.close();
         }
-	      web_sock = new WebSocket("ws://"+window.location.hostname+":8001/"+lon+";"+lat+";.3");
-	      web_sock.onmessage = function(evt) {
-	          var tweet = $(_.template(template, $.parseJSON(evt.data)))
-    	      tweet.hide().prependTo(container).fadeIn();
-	          $(".tweet", container).slice(30).remove();
-	          $("#quiet").remove();
-	      };
+        web_sock = new WebSocket("ws://"+window.location.hostname+":8001/"+lon+";"+lat+";.3");
+        web_sock.onmessage = function(evt) {
+            var tweet = $(_.template(template, $.parseJSON(evt.data)))
+            tweet.hide().prependTo(container).fadeIn();
+            $(".tweet", container).slice(30).remove();
+            $("#quiet").remove();
+        };
     };
 
     function with_position(position){
-	      lon = position.coords.longitude;
-	      lat = position.coords.latitude;
+        lon = position.coords.longitude;
+        lat = position.coords.latitude;
         main(lon, lat);
     }
 
