@@ -1,6 +1,7 @@
 import json
 import sys
 
+import gevent
 import tweepy
 
 import twit.config
@@ -49,6 +50,7 @@ class CustomStreamListener(tweepy.StreamListener):
 
     def on_error(self, status_code):
         print >> sys.stderr, 'Encountered error with status code:', status_code
+        gevent.sleep(60)
         return True  # Don't kill the stream
 
     def on_timeout(self):
