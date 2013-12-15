@@ -44,9 +44,11 @@
         }
     };
 
-    function main() {
+    function main(stress) {
         console.log([lon, lat]);
-        get_tweets(render_all);
+        if (stress === undefined){
+            get_tweets(render_all);
+        }
         if (web_sock !== null){
             web_sock.close();
         }
@@ -87,7 +89,13 @@
         }
     };
 
-    // get_tweets(render_all);
+    function stress(){
+        lon = parseFloat($("#m_lon").val());
+        lat = parseFloat($("#m_lat").val());
+        main(lon, lat);
+    };
+    //stress();
+
     get_location();
     window.get_location = get_location;
     $("#m_butt").click(manual_position);
