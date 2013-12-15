@@ -46,6 +46,7 @@
 
     function main(stress) {
         console.log([lon, lat]);
+        new_map(lon, lat);
         if (stress === undefined){
             get_tweets(render_all);
         }
@@ -95,6 +96,22 @@
         main(lon, lat);
     };
     //stress();
+
+    function new_map(lon, lat){
+        $("#map").html("").height(300);
+        var map = new OpenLayers.Map(
+            "map", { controls:[new OpenLayers.Control.Navigation(),
+                               new OpenLayers.Control.PanZoomBar(),],
+                     numZoomLevels: 18,
+	           });
+        var layer = new OpenLayers.Layer.OSM("Simple OSM Map");
+        map.addLayer(layer);
+        map.setCenter(new OpenLayers.LonLat(lon, lat).transform(
+            new OpenLayers.Projection("EPSG:4326"),
+            map.getProjectionObject()
+        ), 14);
+        return map;
+    };
 
     get_location();
     window.get_location = get_location;
