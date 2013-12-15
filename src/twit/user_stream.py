@@ -36,7 +36,6 @@ def parse_lon_lat(path):
 
 
 def web_socket_handler(environ, start_response):
-    print "called"
     web_sock = environ['wsgi.websocket']
     lon, lat, dist = parse_lon_lat(web_sock.path)
     user_stream(lon, lat, dist, web_sock)
