@@ -1,24 +1,29 @@
 <!DOCTYPE html>
+<meta charset="utf-8">
 <html>
-  <head><title>Twit! - see tweets near you</title></head>
+  <head>
+    <title>Twit! - see tweets near you</title>
+  </head>
   <body>
-    <h2>See tweets near you.</h2>
-    <div>Or enter location manually:
+    <div class="page-header">
+      <h2>See tweets near you.</h2>
+    </div>
+    <div>Or enter a location manually:
       <label for="latitude">Latitude</label>
       <input id="m_lat" type="number" name="latitude" value="51.5143">
       <label for="longitude">Longitude</label>
       <input id="m_lon" type="number" name="longitude" value="-0.0927">
       <button id="m_butt">go</button>
     </div>
-    <div id="twit_box">loading..</div>
+    <div id="twit_box">Fetching recent tweets..</div>
     <script type="text/html" id='twit_box_template'>
-          <ul class="tweet">
-            <span class="text"><%= text %></span>
-            <span class="user"><%= user.name %></span>
-            <span class="time"><%= new Date(timestamp*1000).toUTCString() %></span>
-	  </ul>
+      <ul class="tweet">
+        <span class="text"><%= text %></span>
+        <span class="user"><%= user.name %></span>
+        <span class="time"><%= new Date(timestamp*1000).toUTCString() %></span>
+      </ul>
     </script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
     <script src="twit.js"></script>
   </body>
