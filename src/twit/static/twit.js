@@ -98,18 +98,26 @@
     //stress();
 
     function new_map(lon, lat){
-        $("#map").html("").height(300);
+        $("#map").html("").height("30vh");
         var map = new OpenLayers.Map(
             "map", { controls:[new OpenLayers.Control.Navigation(),
                                new OpenLayers.Control.PanZoomBar(),],
                      numZoomLevels: 18,
 	           });
         var layer = new OpenLayers.Layer.OSM("Simple OSM Map");
+        var markers = new OpenLayers.Layer.Markers("Markers");
+        var icon = new OpenLayers.Icon(
+            'OpenLayers-2.13.1/img/marker.png',
+            OpenLayers.Size(25, 25));
         map.addLayer(layer);
-        map.setCenter(new OpenLayers.LonLat(lon, lat).transform(
+        map.addLayer(markers);
+        var center = new OpenLayers.LonLat(lon, lat).transform(
             new OpenLayers.Projection("EPSG:4326"),
-            map.getProjectionObject()
-        ), 14);
+            map.getProjectionObject());
+        console.log(center);
+        map.setCenter(center, 15);
+        var marker = new OpenLayers.Marker(center, icon);
+        markers.addMarker(marker);
         return map;
     };
 
