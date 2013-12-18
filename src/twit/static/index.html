@@ -3,11 +3,21 @@
 <html>
   <head>
     <title>Twit! - see tweets near you</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.0.3/slate/bootstrap.min.css">
   </head>
   <body>
     <div class="page-header">
       <h2>See tweets near you.</h2>
     </div>
+    <div id="map_container">
+      <div id="map" class="smallmap"></div>
+      <span class="expand"></span>
+    </div>
+    <ul id="twit_box" class="list-group">
+      <li class="list-group-item tweet">Fetching recent tweets..</li>
+    </ul>
     <div>Or enter a location manually:
       <label for="latitude">Latitude</label>
       <input id="m_lat" type="number" name="latitude" value="51.5143">
@@ -15,14 +25,11 @@
       <input id="m_lon" type="number" name="longitude" value="-0.0927">
       <button id="m_butt">go</button>
     </div>
-    <div id="map" class="smallmap"></div>
-    <div id="twit_box">Fetching recent tweets..</div>
     <script type="text/html" id='twit_box_template'>
-      <ul class="tweet">
-        <span class="text"><%= text %></span>
-        <span class="user"><%= user.name %></span>
-        <span class="time"><%= new Date(timestamp*1000).toUTCString() %></span>
-      </ul>
+      <li class="tweet list-group-item">
+        <span class="text"><%= text %></span> -
+        <span class="user"><a href="https://twitter.com/<%= user.name %>"><%= user.name %></a></span>
+      </li>
     </script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>

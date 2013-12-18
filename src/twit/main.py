@@ -29,7 +29,7 @@ def tweet_to_dict(tweet):
     doc = {
         "text": tweet.text,
         "id": tweet.id,
-        "user": {"id": tweet.user.id, "name": tweet.user.name},
+        "user": {"id": tweet.user.id, "name": tweet.user.screen_name},
         "timestamp": int(tweet.created_at.strftime("%s")),
     }
     if tweet.geo is None:
