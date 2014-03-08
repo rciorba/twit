@@ -28,8 +28,7 @@ class Indexer(object):
                 "tweet": {
                     "properties": {
                         "location": {"type": "geo_point"},
-                        "text": {"type": "string",
-                                 "store": "yes"},
+                        "text": {"type": "string"},
                         "timestamp": {"type": "integer"},
                     },
                     "_ttl": {
