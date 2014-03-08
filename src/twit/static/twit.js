@@ -76,9 +76,18 @@
         main(lon, lat);
     };
 
+    function fragment_position(){
+        var pos = window.location.hash.slice(1).split(';');
+        lat = parseFloat(pos[1]);
+        lon = parseFloat(pos[0]);
+        main(lon, lat);
+    }
+
     function get_location() {
-        console.log("get_location");
-        if ("geolocation" in navigator) {
+        if (window.location.hash !== "") {
+            fragment_position();
+        }
+        else if ("geolocation" in navigator) {
             console.log("geolocation supported");
             var error_cb = _.partial(message, "geolocation error");
             navigator.geolocation.getCurrentPosition(with_position, error_cb);
@@ -88,15 +97,8 @@
         }
     };
 
-    function stress(){
-        lon = parseFloat($("#m_lon").val());
-        lat = parseFloat($("#m_lat").val());
-        main(lon, lat);
-    };
-    //stress();
-
     function new_map(lon, lat){
-        $("#map").html("").height("30vh");
+        $("#map").html("").height("320px");
         var map = new OpenLayers.Map(
             "map", { controls:[new OpenLayers.Control.Navigation(),
                                new OpenLayers.Control.PanZoomBar(),],
@@ -119,9 +121,21 @@
         return map;
     };
 
+    $(".toggle_map .show_map").click(function(){
+        $("#map_container").slideDown();
+        $(".toggle_map .hide_map").removeClass("hidden")
+        $(".toggle_map .show_map").addClass("hidden")
+    });
+    $(".toggle_map .hide_map").click(function(){
+        $("#map_container").slideUp();
+        $(".toggle_map .show_map").removeClass("hidden")
+        $(".toggle_map .hide_map").addClass("hidden")
+    });
+
     get_location();
     window.get_location = get_location;
     $("#m_butt").click(manual_position);
+    $("a.location").click(fragment_position);
 
 
 }(jQuery, _));

@@ -6,6 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.0.3/slate/bootstrap.min.css">
+    <style>
+     input {
+       width: 5em;
+     }
+     .toggle_map {
+       width: 100%;
+       transition: all 1s ease-in-out;
+     }
+     .hide_map, .show_map {
+       width: 100%;
+       font-size: 1.2em;
+       text-align: center;
+     }
+     .toggle_map:hover {
+       background-color: #32383e;
+       transition: all 1s ease-in-out;
+     }
+    </style>
   </head>
   <body>
     <div class="page-header">
@@ -13,18 +31,32 @@
     </div>
     <div id="map_container">
       <div id="map" class="smallmap"></div>
-      <span class="expand"></span>
+    </div>
+    <div class="toggle_map">
+      <div class="hide_map">
+        <span class="glyphicon glyphicon-chevron-up"></span>
+        hide map
+        <span class="glyphicon glyphicon-chevron-up"></span>
+      </div>
+      <div class="show_map hidden">
+        <span class="glyphicon glyphicon-chevron-down"></span>
+        show map
+        <span class="glyphicon glyphicon-chevron-down"></span>
+      </div>
+    </div>
+    <div>Pick a location:
+      <a class="location" href="#-0.0927;51.5143">London</a>
+      <br>
+      Or enter coordinates:
+      <label for="latitude">Latitude</label>
+      <input id="m_lat" name="latitude" value="51.5143">
+      <label for="longitude">Longitude</label>
+      <input id="m_lon" name="longitude" value="-0.0927">
+      <button id="m_butt">go</button>
     </div>
     <ul id="twit_box" class="list-group">
       <li class="list-group-item tweet">Fetching recent tweets..</li>
     </ul>
-    <div>Or enter a location manually:
-      <label for="latitude">Latitude</label>
-      <input id="m_lat" type="number" name="latitude" value="51.5143">
-      <label for="longitude">Longitude</label>
-      <input id="m_lon" type="number" name="longitude" value="-0.0927">
-      <button id="m_butt">go</button>
-    </div>
     <script type="text/html" id='twit_box_template'>
       <li class="tweet list-group-item">
         <span class="text"><%= text %></span> -
