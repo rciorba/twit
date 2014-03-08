@@ -1,5 +1,7 @@
 src/twit/twit.conf
 src/twit/static/OpenLayers-2.13.1/*
+*.pid
+*.log
 
 # Compiled Files #
 ##################
@@ -10,23 +12,3 @@ src/twit/static/OpenLayers-2.13.1/*
 #############
 \#*
 .\#*
-
-*.py[cod]
-
-# C extensions
-*.so
-
-# Packages
-*.egg
-*.egg-info
-dist
-build
-eggs
-parts
-bin
-var
-sdist
-develop-eggs
-.installed.cfg
-lib
-lib64
