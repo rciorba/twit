@@ -47,9 +47,7 @@
     function main(stress) {
         console.log([lon, lat]);
         new_map(lon, lat);
-        if (stress === undefined){
-            get_tweets(render_all);
-        }
+        get_tweets(render_all);
         if (web_sock !== null){
             web_sock.close();
         }
