@@ -38,15 +38,15 @@ python -m twit.frontend http  # starts search + static server only
 """
     if len(sys.argv) > 1:
         invocation = sys.argv[1]
+        if invocation == "ws":
+            ws_server()
+        elif invocation == "http":
+            http_server()
+        else:
+            print "illegal invocation %r" % invocation
+            sys.exit(1)
     else:
         ws_server()
         http_server()
-    if invocation == "ws":
-        ws_server()
-    elif invocation == "http":
-        http_server()
-    else:
-        print "illegal invocation %r" % invocation
-        sys.exit(1)
     while True:
         gevent.sleep(1)
