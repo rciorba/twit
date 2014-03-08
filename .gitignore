@@ -1,4 +1,5 @@
 src/twit/twit.conf
+src/twit/static/OpenLayers-2.13.1/*
 
 # Compiled Files #
 ##################
