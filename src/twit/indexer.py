@@ -10,12 +10,14 @@ cfg = config.get_config()
 
 
 class Indexer(object):
+    BATCH_SIZE = 100
     def __init__(self, name, client=None, settings=None):
         self.name = name
         self.settings = settings
         self.client = client or es.ElasticSearch(
             urls=[cfg.get("es_url", "http://localhost:9200")])
         self.sub = Subscriber()
+        self._buffer = []
 
     def setup(self):
         try:
@@ -41,8 +43,11 @@ class Indexer(object):
         return self
 
     def index(self, tweet):
-        print tweet
-        self.client.index(self.name, "tweet", tweet)
+        self._buffer.append(tweet)
+        if len(self._buffer) >= self.BATCH_SIZE:
+            self.client.bulk_index(self.name, "tweet", self._buffer)
+            self._buffer = []
+            print tweet
 
     def loop(self):
         while True:
