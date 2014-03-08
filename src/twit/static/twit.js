@@ -51,7 +51,7 @@
         if (web_sock !== null){
             web_sock.close();
         }
-        var ws_url = "ws://"+window.location.hostname+":8001/"+lon+";"+lat+";.3";
+        var ws_url = "ws://"+window.location.hostname+":8001/"+lon+";"+lat;
         console.log(ws_url);
         web_sock = new WebSocket(ws_url);
         web_sock.onmessage = function(evt) {

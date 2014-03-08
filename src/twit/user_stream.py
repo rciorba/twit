@@ -17,9 +17,9 @@ def broadcast_tweets():
         pub.send(marshal.dumps(json.loads(sub.recv())))
 
 
-def user_stream(lon, lat, dist, web_sock):
+def user_stream(lon, lat, web_sock):
     sub = Subscriber(url="inproc://twit", context=ctx)
-    sq_dist = dist**2
+    sq_dist = .09
     # print lat, lon, dist
     while True:
         tweet = marshal.loads(sub.recv())
@@ -31,14 +31,14 @@ def user_stream(lon, lat, dist, web_sock):
 
 
 def parse_lon_lat(path):
-    lon, lat, dist = path[1:].split(";")
-    return float(lon), float(lat), float(dist)
+    lon, lat = path[1:].split(";")
+    return float(lon), float(lat)
 
 
 def web_socket_handler(environ, start_response):
     web_sock = environ['wsgi.websocket']
-    lon, lat, dist = parse_lon_lat(web_sock.path)
-    user_stream(lon, lat, dist, web_sock)
+    lon, lat = parse_lon_lat(web_sock.path)
+    user_stream(lon, lat, web_sock)
 
 
 if __name__ == "__main__":
