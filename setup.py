@@ -2,8 +2,8 @@ from setuptools import setup, find_packages
 from os import path
 
 def parse_requirements(file_path=None):
-    if file_path is None
-        file_path = path.join(os.dirname(__file__), "REQUIREMENTS")
+    if file_path is None:
+        file_path = path.join(path.dirname(__file__), "REQUIREMENTS")
     with open(file_path) as fd:
         return [l.strip() for l in fd.xreadlines()]
 
