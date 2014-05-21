@@ -1,5 +1,7 @@
 src/twit/twit.conf
 src/twit/static/OpenLayers-2.13.1/*
+build/src/*
+build/wheelhouse/*
 *.pid
 *.log
 
@@ -12,3 +14,4 @@ src/twit/static/OpenLayers-2.13.1/*
 #############
 \#*
 .\#*
+*~
