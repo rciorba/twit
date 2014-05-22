@@ -5,6 +5,6 @@ fi
 
 DESCRIPTION=$(cd ./src/; git pull origin > /dev/null; git show HEAD -s --oneline)
 echo "building for $DESCRIPTION"
-docker build -t twit .
+docker build -t rciorba/twit .
 
 
