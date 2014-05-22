@@ -8,5 +8,5 @@ ADD ./wheelhouse/ /var/www/wheelhouse
 RUN pip install -r /var/www/src/REQUIREMENTS --no-index --find-links /var/www/wheelhouse; pip install -e /var/www/src/
 
 USER www-data
-CMD export TWIT_SETTINGS=/conf/twit.conf; supervisord -c /var/www/src/supervisor.conf
+CMD export TWIT_SETTINGS=/conf/twit.conf; export ES_URL=http://$ES_PORT_9200_TCP_ADDR:$ES_PORT_9200_TCP_PORT; supervisord -c /var/www/src/supervisor.conf
 # assumes /var/log/twit exists and is writable; should be bind mounted from the host
