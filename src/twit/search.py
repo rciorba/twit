@@ -7,7 +7,7 @@ from twit import config
 app = Flask("twit")
 app.debug = True
 cfg = config.get_config()
-client = es.ElasticSearch(urls=[cfg.get("es_url", "http://localhost:9200")])
+client = es.ElasticSearch(urls=[cfg.get("ES_URL", "http://localhost:9200")])
 
 
 def build_query(lat, lon):

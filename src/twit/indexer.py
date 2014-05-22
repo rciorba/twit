@@ -15,7 +15,7 @@ class Indexer(object):
         self.name = name
         self.settings = settings
         self.client = client or es.ElasticSearch(
-            urls=[cfg.get("es_url", "http://localhost:9200")])
+            urls=[cfg.get("ES_URL", "http://localhost:9200")])
         self.sub = Subscriber()
         self._buffer = []
 
