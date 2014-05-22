@@ -34,7 +34,7 @@
     };
 
     function get_tweets(callback, forever){
-        $.getJSON("/search/lonlat/"+lon+"+"+lat, function(data){
+        $.getJSON("search/lonlat/"+lon+"+"+lat, function(data){
             callback(data);
             console.log("got tweets")
         });
