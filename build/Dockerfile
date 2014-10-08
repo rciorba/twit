@@ -1,4 +1,4 @@
-FROM debian:7.4
+FROM debian:7
 MAINTAINER Radu Ciorba raduciorba@gmail.com
 
 RUN apt-get -qq update
