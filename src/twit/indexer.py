@@ -56,5 +56,6 @@ class Indexer(object):
 
 
 if __name__ == "__main__":
-    indexer = Indexer("twit").setup()
+    settings = {"number_of_shards": 1, "number_of_replicas": 0}
+    indexer = Indexer("twit", settings=settings).setup()
     indexer.loop()
